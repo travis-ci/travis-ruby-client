@@ -55,6 +55,15 @@ module Travis
           true
         end
 
+        # Retrurns the build id
+        # We were forced to define this method since on ruby versions < 1.9.2
+        # {Object#id} is preventing the {Build#id} reflection.
+        #
+        # @return [Fixnum] Build ID
+        def id
+          @attributes['id']
+        end
+
       private
 
         # Fetches its repository by name and owner. If any of them is 

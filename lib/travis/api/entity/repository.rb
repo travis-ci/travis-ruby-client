@@ -52,6 +52,15 @@ module Travis
           @attributes = Client::Repositories.owner(self.owner).name(self.name).fetch!.attributes
           true
         end
+       
+        # Retrurns the repository id
+        # We were forced to define this method since on ruby versions < 1.9.2
+        # {Object#id} is preventing the {Repository#id} reflection.
+        #
+        # @return [Fixnum] Repository ID
+        def id
+          @attributes['id']
+        end
 
       end
 
