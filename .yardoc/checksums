@@ -1,0 +1,7 @@
+lib/travis.rb b81b8eb1563c2b5bb980a5cd552773fc89b15594
+lib/travis/api.rb 64ff1076f40cba44e2f8019d3f70f2ac265d7ab4
+lib/travis/api/client.rb b2b66bced790d869e786749dd535186272a7e0f7
+lib/travis/api/entity.rb c8a0c62468e0b48a08bf63297b1a7365adc27db8
+lib/travis/api/entity/build.rb 59f9ff050c3808fceee682f938db89bf38a648f7
+lib/travis/api/entity/repository.rb c4908f973d6ae7e73419a0bd2a5f010cb5352acd
+lib/travis/api/client/repositories.rb 9a720999f1fd8262584af13206526478b1b921be

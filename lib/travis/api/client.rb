@@ -6,55 +6,58 @@ module Travis
 
   module API
 
-    # Travis CI API Client
+    # Travis API Client
 
     class Client
 
-      def initialize(options={})
-        @options = {:format=>DEFAULT_FORMAT}.merge(options)
+      def initialize(options = {})
+        @options = {:format => DEFAULT_FORMAT}.merge(options)
       end
 
-      #Since right now we are not supporting a raw response the format doesn't make any sence 
+      # Sets the response format and returns the host client instance
       #
-      #def format(format)
-      #  @options[:format] = format.to_s
-      #  self
-      #end
+      # @param [Symbol, String] format The desired response format, <tt>:json</tt>.
+      # @return [Client, Client::Repositories] The host client instance.
+      def format(format)
+        @options[:format] = format.to_s
+        self
+      end
 
       def self.method_missing(method, *args, &block)
         return self.new.send(method, *args, &block) if self.client.respond_to?(method)
         super
       end
 
-      def self.respond_to?(method, include_private=false)
+      def self.respond_to?(method, include_private = false)
         self.client.respond_to?(method, include_private) || super(method, include_private)
       end	
 
     private
        
-      # Client default configuration
-      # TODO: Move to a configuration file?
-      
+      # Client default host
       API_HOST = 'travis-ci.org'
+
+      # Response default format
       DEFAULT_FORMAT = 'json'
      
-      # Returns the encoded response for the given path and 
-      # previouly set options
-
+      # Returns the encoded response for the given path and previouly set options
+      #
+      # @param [String] path API target path
+      # @return Encoded response
       def results_for(path)
         @options.each_pair do |key, value|
           path.gsub!(":#{key}", value)
         end
 
-        #TODO Add proxy support / Faraday instead
         response = Net::HTTP.get_response(API_HOST, path)
 
         return parse(response.body)
       end
 
-      # Encodes and return the given content
-      # based on the previously set format
-
+      # Encodes and return the given content based on the previously set format
+      #
+      # @param [String] content Content to be encoded
+      # @return Encoded conter
       def parse(content)
         case @options[:format]
         when 'json' then
@@ -64,8 +67,10 @@ module Travis
         end
       end
 
-      # Returns a new instance of the current class
  
+      # Initializes and return an instance of the current class
+      #
+      # @return A new instance of the current class
       def self.client
         self.new
       end
