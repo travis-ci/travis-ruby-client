@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.summary = %q{A Ruby wrapper for the Travis CI API}
   gem.homepage = 'https://github.com/travis/travis-ruby-client'
 
-  gem.add_runtime_dependency 'json'
+  gem.add_runtime_dependency 'faraday'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'cucumber'

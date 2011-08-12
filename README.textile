@@ -8,7 +8,7 @@ h2. Contact
 
 h2. Documentation
 
-* "YARD docs":travis-ci.github.com/travis-ruby-client/
+* "YARD docs":http://travis-ci.github.com/travis-ruby-client/
 
 h2. Usage
 

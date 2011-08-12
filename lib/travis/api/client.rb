@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'faraday'
 require 'travis/api/client/repositories'
 
 module Travis
@@ -35,10 +36,19 @@ module Travis
     private
        
       # Client default host
-      API_HOST = 'travis-ci.org'
+      API_HOST = 'http://travis-ci.org'
 
       # Response default format
       DEFAULT_FORMAT = 'json'
+
+      # Returns the HTTP connection handler
+      #
+      # @return [Faraday] 
+      def connection
+        @@connection ||= Faraday.new(:url => API_HOST) do |builder|
+          builder.adapter  :net_http
+        end
+      end
      
       # Returns the encoded response for the given path and previouly set options
       #
@@ -49,7 +59,7 @@ module Travis
           path.gsub!(":#{key}", value)
         end
 
-        response = Net::HTTP.get_response(API_HOST, path)
+        response = connection().get(path)
 
         return parse(response.body)
       end

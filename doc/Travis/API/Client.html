@@ -138,7 +138,7 @@ Client default host
   
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>travis-ci.org</span><span class='tstring_end'>'</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>http://travis-ci.org</span><span class='tstring_end'>'</span></span></pre></dd>
       
         <dt id="DEFAULT_FORMAT-constant" class="">DEFAULT_FORMAT =
           <div class="docstring">
@@ -302,12 +302,12 @@ A new instance of Client
       <pre class="lines">
 
 
-13
 14
-15</pre>
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id initialize'>initialize</span><span class='lparen'>(</span><span class='id options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='symbol'>:format</span> <span class='op'>=&gt;</span> <span class='const'>DEFAULT_FORMAT</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id merge'>merge</span><span class='lparen'>(</span><span class='id options'>options</span><span class='rparen'>)</span>
@@ -337,13 +337,13 @@ A new instance of Client
       <pre class="lines">
 
 
-26
 27
 28
-29</pre>
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id method_missing'>method_missing</span><span class='lparen'>(</span><span class='id method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>self</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id send'>send</span><span class='lparen'>(</span><span class='id method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id block'>block</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id client'>client</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id method'>method</span><span class='rparen'>)</span>
@@ -388,12 +388,12 @@ A new instance of Client
       <pre class="lines">
 
 
-31
 32
-33</pre>
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id method'>method</span><span class='comma'>,</span> <span class='id include_private'>include_private</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id client'>client</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id method'>method</span><span class='comma'>,</span> <span class='id include_private'>include_private</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id method'>method</span><span class='comma'>,</span> <span class='id include_private'>include_private</span><span class='rparen'>)</span>
@@ -473,13 +473,13 @@ The host client instance.
       <pre class="lines">
 
 
-21
 22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/travis/api/client.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id format'>format</span><span class='lparen'>(</span><span class='id format'>format</span><span class='rparen'>)</span>
   <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id format'>format</span><span class='period'>.</span><span class='id to_s'>to_s</span>
@@ -495,7 +495,7 @@ The host client instance.
 </div>
     
     <div id="footer">
-  Generated on Fri Aug 12 04:34:08 2011 by 
+  Generated on Fri Aug 12 05:35:18 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.2 (ruby-1.9.2).
 </div>

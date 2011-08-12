@@ -54,11 +54,21 @@
     
     <iframe id="search_frame"></iframe>
     
-    <div id="content"><div id='filecontents'><h1>Travis CI <span class="caps">API</span> Wrapper</h1>
+    <div id="content"><div id='filecontents'><h1>Travis Ruby Client &#8211; <a href="http://travis-ci.org/travis-ci/travis-ruby-client"><img src="https://secure.travis-ci.org/travis-ci/travis-ruby-client.png?branch=master" alt="" /></a></h1>
+<h2>Contact</h2>
+<ul>
+	<li><a href="http://github.com/travis-ci/travis-ruby-client">Github</a></li>
+	<li><a href="http://twitter.com/travisci">Twitter</a></li>
+	<li><a href="irc://irc.freenode.net#travis"><span class="caps">IRC</span></a></li>
+	<li><a href="http://groups.google.com/group/travis-ci">Mailinglist</a></li>
+</ul>
+<h2>Documentation</h2>
+<ul>
+	<li><a href="http://travis-ci.github.com/travis-ruby-client/"><span class="caps">YARD</span> docs</a></li>
+</ul>
 <h2>Usage</h2>
+<h3>Fetching Repositories</h3>
 <pre lang="ruby">
-#Repositories
-
 Travis::API:Client::Repositories.all #Collection of Repository instances
 
 Travis::API:Client::Repositories.all! #Collection of Repository instances bypassing cache
@@ -70,9 +80,9 @@ Travis::API:Client::Repositories.owner('owner_name_here').name('name_here').fetc
 Travis::API:Client::Repositories.slug('owner_name_here/name_here').fetch #Repository
 
 Travis::API:Client::Repositories.slug('owner_name_here/name_here').fetch! #Repository bypassing cache
-
-#Builds
-
+</pre>
+<h3>Fetching Builds</h3>
+<pre lang="ruby">
 Travis::API:Client::Repositories.owner('owner_name_here').name('name_here').builds #Collection of Build instances 
 
 Travis::API:Client::Repositories.owner('owner_name_here').name('name_here').builds! #Collection of Build instances bypassing cache
@@ -108,7 +118,7 @@ build.matrix #=&gt; Collection of Build instances or nil</code></pre>
 <pre lang="ruby"><code lang="ruby">build.reload! #=&gt; Fetch the updated build data from the API and updates its attributes and relationships</code></pre></div></div>
     
     <div id="footer">
-  Generated on Fri Aug 12 04:34:07 2011 by 
+  Generated on Fri Aug 12 05:35:17 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.2 (ruby-1.9.2).
 </div>
