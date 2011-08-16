@@ -27,6 +27,13 @@ module Travis
           super(attributes)
         end
 
+        # Return the hash representation of the Repository
+        #
+        # @return [Hash]
+        def to_hash
+          return attributes
+        end
+
         # Fetches and returns its builds.
         # Once the collection is fetched it will remain cached until {#reload!} is called.
         #

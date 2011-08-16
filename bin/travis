@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << './lib/'
+require 'travis/client'
+
+command = ARGV.first || ''
+
+unless ['Repositories'].include?(command.capitalize)
+  raise "Unknown Command"
+end
+
+Travis::Client.const_get(command.capitalize).new.run

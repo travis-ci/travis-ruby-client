@@ -4,7 +4,7 @@ module Travis
   
     class Client
       
-      # Travis API Client for Repositories
+      # Travis API Client for Repositories 
 
       class Repositories < Client
 
@@ -13,7 +13,9 @@ module Travis
         # 
         # @return [Array<Entity::Repository>] 
         def all
-          @@repositories || self.all!
+          #Having some issues with the cached repositories
+          #@@repositories || self.all!
+          self.all!
         end    
 
         # Fetches and return the list of recent repositories.
@@ -29,7 +31,9 @@ module Travis
         #
         # @return [Entity::Repository]
         def fetch
-          fetch_from_cache() || self.fetch!
+          #Having some issues with the cached repositories
+          #fetch_from_cache() || self.fetch!
+          self.fetch!
         end
 
         # Fetches and return a repository based on the previously 
@@ -48,7 +52,9 @@ module Travis
         #
         # @return [Array<Entity::Build>]
         def builds
-          @@builds || self.builds!
+          #Having some issues with the cahced builds
+          #@@builds || self.builds!
+          self.builds!
         end
 
         # Fetches and return the list of recent builds.
@@ -65,7 +71,9 @@ module Travis
         #
         # @return [Entity::Build]
         def build(build_id)
-          build_from_cache(build_id) || self.build!(build_id) 
+          #Having some issues with the cached builds
+          #build_from_cache(build_id) || self.build!(build_id) 
+          self.build!(build_id)
         end
 
         # Fetches and return a build based on the given
