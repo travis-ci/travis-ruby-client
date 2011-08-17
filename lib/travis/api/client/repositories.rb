@@ -183,7 +183,8 @@ module Travis
         # @return [Entity::Repository]
         def fetch_by_owner_and_name!
           repositories_cache().delete_if {|r| r.owner == @options[:owner] && r.name == @options[:name]}
-          return Entity::Repository.new(results_for(REPOSITORY_PATH), @options[:owner], @options[:name])
+          repository_data = results_for(REPOSITORY_PATH)
+          return repository_data && Entity::Repository.new(repository_data, @options[:owner], @options[:name])
         end
 
         # Right now there's no way to get a repository directly by id.

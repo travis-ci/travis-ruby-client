@@ -54,14 +54,16 @@ module Travis
       #
       # @param [String] path API target path
       # @return Encoded response
-      def results_for(path)
+      def results_for(path_template)
+        path = path_template.dup
+
         @options.each_pair do |key, value|
           path.gsub!(":#{key}", value)
         end
 
         response = connection().get(path)
-
-        return parse(response.body)
+        
+        return response.status == 200 ? parse(response.body) : nil
       end
 
       # Encodes and return the given content based on the previously set format

@@ -12,7 +12,19 @@ module Travis
 
       def fetch
         $stdout.print("Fetching repository #{options().owner}/#{options().name} ...\n\n")
-        $stdout.print(repository_view_for(API::Client::Repositories.owner(options().owner).name(options().name).fetch!))
+        if repository = API::Client::Repositories.owner(options().owner).name(options().name).fetch!
+          $stdout.print(repository_view_for(repository))
+        else
+          $stdout.print("\033\[33mCould not find the #{options().owner}/#{options().name} repository.\033\[0m")
+        end
+        $stdout.print("\n")
+      end
+
+      def fetch_group
+        $stdout.print("Fetching repositories #{options().slugs.join(', ')} ...\n")
+        repositories = options().slugs.map {|slug| API::Client::Repositories.slug(slug).fetch! || $stdout.print("\033\[33mCould not find the #{slug} repository\033\[0m\n")}.compact
+        $stdout.print("\n")
+        $stdout.print(repositories_table_for(repositories))
         $stdout.print("\n")
       end
 
@@ -72,7 +84,13 @@ module Travis
               options().owner = owner
               options().name = name
             }
-          ] 
+          ],
+          ['--slugs=', '-ss', 'Sets the Target Repositories Slugs',
+            Proc.new { |value|
+              options().target = :fetch_group
+              options().slugs = value.split(',')
+            }
+          ]
         ]
       end
 

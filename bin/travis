@@ -2,10 +2,12 @@
 $LOAD_PATH << './lib/'
 require 'travis/client'
 
-command = ARGV.first || ''
+command = ARGV.first.to_s.downcase
 
-unless ['Repositories'].include?(command.capitalize)
-  raise "Unknown Command"
+
+if ['repositories'].include?(command)
+  Travis::Client.const_get(command.capitalize).new.run
+else
+  Travis::Client.send(command)
 end
 
-Travis::Client.const_get(command.capitalize).new.run
