@@ -16,6 +16,13 @@ module Travis
           @repository_name = repository_name
           super(attributes)
         end
+        
+        # Returns the hash representation of the Build
+        #
+        # @return [Hash]
+        def to_hash
+          return attributes()
+        end
 
         # Fetches and returns the parent build based on the build {#partner_id}.
         # Returns nil if the current buils is actually a parent.

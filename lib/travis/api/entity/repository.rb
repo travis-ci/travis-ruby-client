@@ -27,11 +27,11 @@ module Travis
           super(attributes)
         end
 
-        # Return the hash representation of the Repository
+        # Returns the hash representation of the Repository
         #
         # @return [Hash]
         def to_hash
-          return attributes
+          return attributes()
         end
 
         # Fetches and returns its builds.
