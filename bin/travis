@@ -7,7 +7,10 @@ command = ARGV.first.to_s.downcase
 
 if ['repositories'].include?(command)
   Travis::Client.const_get(command.capitalize).new.run
-else
+elsif ['status'].include?(command)
   Travis::Client.send(command)
+else
+  ARGV << '-h'
+  Travis::Client.new.run
 end
 

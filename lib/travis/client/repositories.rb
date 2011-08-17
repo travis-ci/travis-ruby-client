@@ -93,32 +93,48 @@ module Travis
       def set_default_options
         options().target = :recent
       end
+
+      def setup_help(opts)
+        opts.separator ''
+        opts.separator <<-USAGE
+Usage:
+   travis repositories [--recent]
+   travis repostiories --slugs={repository_slug}[,{repository_slug}[,...]]
+   travis repositories --name={repository_name} --owner={owner_name}
+   travis repostiories --slug={repository_slug}
+   travis repositories --builds
+   travis repositories --name={repository_name} --owner={owner_name} --build_id={build_id}
+   travis repositories --slug={repository_slug} --build_id={build_id}
+        USAGE
+
+        yield(opts)
+      end
       
       def client_options
         super + [
-          ['--recent', 'List just the recent processed repositories [DEFAULT]',
+          ['--recent', 'lists the recent processed repositories.',
             Proc.new {
               options().target = :recent
             }
           ],
-          ['--builds', 'List the recent Repository\'s builds',
+          ['--builds', '-B', 'lists the recent builds for a repository.',
             Proc.new { 
               options().target = :builds
             }
           ],
-          ['--owner=', '-o', 'Sets the Target Repository Owner\'s Name',
+          ['--owner=', '-o', 'sets the target repository owner\'s name.',
             Proc.new { |value|
               options().target = :fetch
               options().owner = value
             }
           ], 
-          ['--name=', '-n', 'Sets the Target Repository\'s Name',
+          ['--name=', '-n', 'sets the target repository name.',
             Proc.new { |value|
               options().target = :fetch
               options().name = value
             }
           ], 
-          ['--slug=', '-s', 'Sets the Target Repository\'s Slug',
+          ['--slug=', '-s', 'sets the target repositorys slug.',
             Proc.new { |value|
               options().target = :fetch
               owner, name = value.split('/')
@@ -126,13 +142,13 @@ module Travis
               options().name = name
             }
           ],
-          ['--slugs=', '-ss', 'Sets the Target Repositories Slugs',
+          ['--slugs=', '-S', 'sets the target repositories slugs (comma separated).',
             Proc.new { |value|
               options().target = :fetch_group
               options().slugs = value.split(',')
             }
           ],
-          ['--build_id=', '-bi', 'Sets the Target Repository Build ID',
+          ['--build_id=', '-b', 'sets the target repository build id.',
             Proc.new { |value|
               options().target = :build
               options().build_id = value

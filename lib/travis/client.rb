@@ -33,10 +33,37 @@ module Travis
 
     def handle_options
       OptionParser.new do |opts|
-        client_options().each {|option| opts.on(*option)}
+        opts.banner = 'Travis CI Command Line Client'
+
+        setup_help(opts) {|opts|
+          opts.separator ''
+          opts.separator 'Supported Options:'
+          client_options().each {|option| opts.on(*option)}
+          opts.on_tail('--help', '-h', '-H', 'display this help message.') do
+            $stdout.print opts
+            exit
+          end
+        }
       end.parse!
     end
-    
+   
+    def setup_help(opts)
+      opts.separator ''
+      opts.separator <<-USAGE
+Usage:
+   travis repositories {options}
+   travis status {options}
+      USAGE
+      opts.separator ''
+      opts.separator <<-FURTHER_HELP
+Furhter Help:
+    travis repositories --help
+    travis status --help
+      FURTHER_HELP
+
+      yield(opts)
+    end
+
     def client_options 
       []
     end
