@@ -66,7 +66,35 @@
 <ul>
 	<li><a href="http://travis-ci.github.com/travis-ruby-client/"><span class="caps">YARD</span> docs</a></li>
 </ul>
-<h2>Usage</h2>
+<h2>Usage [As a Command Line Tool]</h2>
+<pre class="code">
+Usage
+    travis repositories [--recent]
+    travis repostiories --slugs={repository_slug}[,{repository_slug}[,...]]
+    travis repositories --name={repository_name} --owner={owner_name}
+    travis repostiories --slug={repository_slug}
+    travis repositories --builds
+    travis repositories --name={repository_name} --owner={owner_name} --build_id={build_id}
+    travis repositories --slug={repository_slug} --build_id={build_id}
+
+Supported Options:
+    --recent                     lists the recent processed repositories.
+    -B, --builds                     lists the recent builds for a repository.
+    -o, --owner=                     sets the target repository owner's name.
+    -n, --name=                      sets the target repository name.
+    -s, --slug=                      sets the target repositorys slug.
+    -S, --slugs=                     sets the target repositories slugs (comma separated).
+    -b, --build_id=                  sets the target repository build id.
+    -h, -H, --help                   display this help message.
+</pre>
+<p>You can also try:</p>
+<pre class="code">
+<span class='id cd'>cd</span> <span class='id your_travis_hooked_application_path'>your_travis_hooked_application_path</span>
+
+<span class='id travis'>travis</span> <span class='id status'>status</span>
+</pre>
+<p>This will try to identify and dispaly the status of the target repository based on the current directory remote git urls.</p>
+<h2>Usage [As a Ruby Library]</h2>
 <h3>Fetching Repositories</h3>
 <pre lang="ruby">
 Travis::API::Client::Repositories.all #Collection of Repository instances
@@ -118,7 +146,7 @@ build.matrix #=&gt; Collection of Build instances or nil</code></pre>
 <pre lang="ruby"><code lang="ruby">build.reload! #=&gt; Fetch the updated build data from the API and updates its attributes and relationships</code></pre></div></div>
     
     <div id="footer">
-  Generated on Fri Aug 12 07:13:08 2011 by 
+  Generated on Wed Aug 17 07:57:42 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.2 (ruby-1.9.2).
 </div>

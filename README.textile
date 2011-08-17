@@ -10,7 +10,40 @@ h2. Documentation
 
 * "YARD docs":http://travis-ci.github.com/travis-ruby-client/
 
-h2. Usage
+h2. Usage [As a Command Line Tool]
+
+<pre>
+Usage
+    travis repositories [--recent]
+    travis repostiories --slugs={repository_slug}[,{repository_slug}[,...]]
+    travis repositories --name={repository_name} --owner={owner_name}
+    travis repostiories --slug={repository_slug}
+    travis repositories --builds
+    travis repositories --name={repository_name} --owner={owner_name} --build_id={build_id}
+    travis repositories --slug={repository_slug} --build_id={build_id}
+
+Supported Options:
+    --recent                     lists the recent processed repositories.
+    -B, --builds                     lists the recent builds for a repository.
+    -o, --owner=                     sets the target repository owner's name.
+    -n, --name=                      sets the target repository name.
+    -s, --slug=                      sets the target repositorys slug.
+    -S, --slugs=                     sets the target repositories slugs (comma separated).
+    -b, --build_id=                  sets the target repository build id.
+    -h, -H, --help                   display this help message.
+</pre>
+
+You can also try:
+
+<pre>
+cd your_travis_hooked_application_path
+
+travis status
+</pre>
+
+This will try to identify and dispaly the status of the target repository based on the current directory remote git urls.
+
+h2. Usage [As a Ruby Library]
 
 h3. Fetching Repositories
 

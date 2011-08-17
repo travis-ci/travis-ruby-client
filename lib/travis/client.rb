@@ -7,8 +7,14 @@ require 'travis/client/repositories'
 
 module Travis
 
+   # Travis Command Line Client
+
   class Client
 
+    # Tries to guess the repository based on the git remote urls
+    # and prints its status.
+    # If several remote repositories are defined it will display
+    # the status of each of them. 
     def self.status
       target_repository_slugs()
       ARGV[0] = 'repositories'
@@ -16,6 +22,7 @@ module Travis
       Repositories.new.run
     end
 
+    # Handles the given options and executes the requested command 
     def run
       handle_options()
       execute_operation()
@@ -23,14 +30,22 @@ module Travis
 
   private
 
+    # Returns the list of repository slugs based on the current 
+    # directory git remote repositories.
+    #
+    # @return [Array<String>]
     def self.target_repository_slugs
       %x[git remote -v].scan(/(?:\:|\/)([^\:\/]+\/[^\:\/]+)\.git/m).flatten.uniq
     end
 
+    # Initializes and return the options as an OpenStruct instance
+    #
+    # @return [OpenStruct]
     def options 
       @options ||= OpenStruct.new
     end
 
+    # Sets the options and creates the help layout.
     def handle_options
       OptionParser.new do |opts|
         opts.banner = 'Travis CI Command Line Client'
@@ -47,6 +62,9 @@ module Travis
       end.parse!
     end
    
+    # Sets up the custom help sections
+    #
+    # @param [OpenParser] opts The options parser
     def setup_help(opts)
       opts.separator ''
       opts.separator <<-USAGE
@@ -64,10 +82,16 @@ Furhter Help:
       yield(opts)
     end
 
+    # Retuns the default options
+    #
+    # @return [Array<String>]
     def client_options 
       []
     end
 
+    # Starts the execution of the previousy requested
+    # command or rise and exception if the target operation
+    # to be executed can not be identified.
     def execute_operation
       unless options().target
         raise 'Nothing to do ...'      
