@@ -109,7 +109,8 @@ Feature: Repositories
       | id            | 69619                                                                           |
       | repository_id | 59                                                                              |
       | status        | 1                                                                               |
-
+    And the result should respond to "matrix" with a collection of Travis::API::Entity::Build instances
+    And the result should respond to "repository" with a Travis::API::Entity::Repository instances
   Examples:
     |method |
     |build  |

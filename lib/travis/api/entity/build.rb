@@ -31,7 +31,7 @@ module Travis
         # @return [Build, NilClass]
         def parent
           return nil if self.matrix
-          @parent ||= Client::Repositories.owner(self.repository_owner).name(self.repository_name).build!(self.partner_id)
+          @parent ||= Client::Repositories.owner(repository_owner()).name(repository_name()).build!(self.partner_id)
         end
 
         # Fetches and returns its repository based on the build {#repository_id}.
@@ -39,7 +39,7 @@ module Travis
         #
         # @return [Repository]
         def repository
-          @repository ||= self.repository!        
+          @repository ||= repository!()
         end
 
         # Returns the collection of its children builds or nil if the current
@@ -48,7 +48,7 @@ module Travis
         # @return [Array<Build>, NilClass]
         def matrix
           return nil unless @attributes.has_key?('matrix')
-          @matrix ||= @attributes['matrix'].map {|build_data| Build.new(build_date, self.repository_owner, self.repository_name)}     
+          @matrix ||= @attributes['matrix'].map {|build_data| Build.new(build_data, repository_owner(), repository_name())}     
         end
 
         # Erases the cached results and updates its attributes.
@@ -58,7 +58,7 @@ module Travis
           @repository = nil
           @parent = nil
           @matrix = nil
-          @attributes = Client::Repositories.owner(self.repository_owner).name(self.repository_name).build!(self.id).attributes
+          @attributes = Client::Repositories.owner(repository_owner()).name(repository_name()).build!(self.id).attributes
           true
         end
 

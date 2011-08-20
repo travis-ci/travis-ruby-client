@@ -37,3 +37,15 @@ When /^I request (\w+\!?) with the following params:$/ do |method, table|
   @result = @client.send(method, *table.raw.collect(&:first))
 end
 
+Then /^the result should respond to "([^"]*)" with a collection of ((?:\:?{2}\w+)+) instances$/ do |method, class_name|
+  expected_class = class_name.split('::').inject(Object) {|x,y| x = x.const_get(y)}
+  @result.send(method).each do |element|
+    element.should be_instance_of expected_class
+  end
+end
+
+Then /^the result should respond to "([^"]*)" with a ((?:\:?{2}\w+)+) instances$/ do |method, class_name|
+  expected_class = class_name.split('::').inject(Object) {|x,y| x = x.const_get(y)}
+  @result.send(method).should be_instance_of expected_class
+end
+

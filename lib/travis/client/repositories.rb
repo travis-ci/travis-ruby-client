@@ -45,9 +45,13 @@ module Travis
 
       # Display detailed information of the requested repository build
       def build
-        $stdout.print("Fetching #{options().owner}/#{options().name} repository #{options().build_id} ...\n\n")
+        $stdout.print("Fetching #{options().owner}/#{options().name} build ##{options().build_id} ...\n\n")
         if build = API::Client::Repositories.owner(options().owner).name(options().name).build!(options().build_id)
           $stdout.print(build_view_for(build))
+          if build.matrix
+            $stdout.print("\nBuild Matrix:\n")
+            $stdout.print(builds_table_for(build.matrix))
+          end  
         else
           $stdout.print("\033\[33mCould not find the #{options().owner}/#{options().name} build with ID = #{oprions().build_id}.\033\[0m")
         end
@@ -85,6 +89,15 @@ module Travis
         nil => 'Running', #"\033\[33mRunning\033\[0m",
         0   => 'Passing', #"\033\[32mPassing\033\[0m",
         1   => 'Failing'  #"\033\[31mFailing\033\[0m"
+      }
+      
+      # Maps the status code from the API to its human translation.
+      #
+      # @return [Hash]
+      BUILD_COLORED_STATUS = {
+        nil => "\033\[33mRunning\033\[0m",
+        0   => "\033\[32mPassing\033\[0m",
+        1   => "\033\[31mFailing\033\[0m"
       }
       
       # Labels for the repository tables.
@@ -271,6 +284,22 @@ Usage:
       #
       # @return [String]
       def build_view_for(build)
+        return <<-BUILD
+#{build.repository.slug} - #{BUILD_COLORED_STATUS[build.status]}
+
+ID: #{build.id}
+Number: #{build.number}
+Repository ID: #{build.repository.id}
+
+Started at: #{build.started_at ? DateTime.parse(build.started_at).strftime('%D %T'): '-----------------'}
+Finished at: #{build.finished_at ? DateTime.parse(build.finished_at).strftime('%D %T'): '-----------------'}
+
+Commit: #{build.commit[0...7]}(#{build.branch}) - http://github.com/#{build.repository.slug}/commit/#{build.commit[0...7]}
+Author: #{build.author_name} (#{build.author_email})
+
+Message: 
+   #{build.message.gsub("\n", "\n   ")}
+        BUILD
         #TODO: Create a more useful view. Using the listing table right now
         Hirb::Helpers::Table.render(
           [build.to_hash], 
