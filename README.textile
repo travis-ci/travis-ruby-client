@@ -13,8 +13,13 @@ h2. Documentation
 h2. Usage [As a Command Line Tool]
 
 <pre>
-Usage
-    travis repositories [--recent]
+Supported Commands:
+    travis repositories|repos|repo|r {optios}
+    travis status|stat|s {options}
+
+Repositories:
+    travis status|stat|s
+    travis repositories|repos|repo|r [--recent]
     travis repostiories --slugs={repository_slug}[,{repository_slug}[,...]]
     travis repositories --name={repository_name} --owner={owner_name}
     travis repostiories --slug={repository_slug}
@@ -33,15 +38,7 @@ Supported Options:
     -h, -H, --help                   display this help message.
 </pre>
 
-You can also try:
-
-<pre>
-cd your_travis_hooked_application_path
-
-travis status
-</pre>
-
-This will try to identify and dispaly the status of the target repository based on the current directory remote git urls.
+The `status` command should be run from your project directory. It will try to identify and dispaly the Travis status of the target repository based on the current directory remote git urls.
 
 h2. Usage [As a Ruby Library]
 

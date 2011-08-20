@@ -2,8 +2,13 @@
 $LOAD_PATH << './lib/'
 require 'travis/client'
 
+available_commands = ['repositories', 'status']
+
 command = ARGV.first.to_s.downcase
 
+if !available_commands.include?(command) && available_commands.select {|c| c =~ Regexp.new("^#{command}.*")}.length == 1
+  command = available_commands.detect {|c| c =~ Regexp.new("^#{command}.*")}
+end
 
 if ['repositories'].include?(command)
   Travis::Client.const_get(command.capitalize).new.run
@@ -13,4 +18,4 @@ else
   ARGV << '-h'
   Travis::Client.new.run
 end
-
+ 

@@ -69,8 +69,8 @@ module Travis
       opts.separator ''
       opts.separator <<-USAGE
 Usage:
-   travis repositories {options}
-   travis status {options}
+   travis repositories|repos|rep|r {options}
+   travis status|stat|s {options}
       USAGE
       opts.separator ''
       opts.separator <<-FURTHER_HELP
