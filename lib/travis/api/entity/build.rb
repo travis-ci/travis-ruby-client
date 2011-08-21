@@ -71,6 +71,26 @@ module Travis
           @attributes['id']
         end
 
+        # Returns its execution time
+        # We were forced to define this method since started_at may be not
+        # be present on the response, until the build starts its execution,
+        # causing an exception.
+        #
+        # @return [String,NilClass]
+        def started_at
+          @attributes['started_at']
+        end
+
+        # Returns its end of execution time
+        # We were forced to define this method since finished_at may be not
+        # be present on the response, until the build starts its execution,
+        # causing an exception.
+        #
+        # @return [String,NilClass]
+        def finished_at
+          @attributes['finished_at']
+        end
+
       private
 
         # Fetches its repository by name and owner. If any of them is 
