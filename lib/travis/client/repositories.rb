@@ -64,7 +64,7 @@ module Travis
 
       # Maps the repository attribute names with the table labels
       #
-      # @return [Hash]
+      # @return [Hash{String=>String}]
       REPOSITORY_FIELD_NAMES = {
         'id' => 'ID',
         'slug' => 'Slug',
@@ -77,7 +77,7 @@ module Travis
 
       # Maps the status code from the API to its human translation.
       #
-      # @return [Hash]
+      # @return [Hash{NilClass,Fixnum=>String}]
       BUILD_STATUS = {
         nil => 'Running',
         0   => 'Passing',
@@ -107,7 +107,7 @@ module Travis
 
       # Maps the build attribute names with the table labels
       #
-      # @return [Hash]
+      # @return [Hash{String=>String}]
       BUILD_FIELD_NAMES = {
         'id' => 'ID',
         'branch' => 'Branch',
@@ -137,7 +137,12 @@ module Travis
       def setup_help(opts)
         opts.separator ''
         opts.separator <<-USAGE
+Commands: 
+   travis status|stat|s {options}
+   travis repositories|repos|repo|r {options}
+
 Usage:
+   travis status
    travis repositories [--recent]
    travis repostiories --slugs={repository_slug}[,{repository_slug}[,...]]
    travis repositories --name={repository_name} --owner={owner_name}
@@ -219,6 +224,7 @@ Last Build:
 
   Commit: #{last_build.commit[0...7]}(#{last_build.branch}) - http://github.com/#{repository.slug}/commit/#{last_build.commit[0...7]}
   Author: #{last_build.author_name} (#{last_build.author_email})
+  Compare Url: #{last_build.compare_url}
 
   Message: 
      #{last_build.message.gsub("\n", "\n     ")}
@@ -323,6 +329,7 @@ Finished at: #{build.finished_at ? DateTime.parse(build.finished_at).strftime('%
 
 Commit: #{build.commit[0...7]}(#{build.branch}) - http://github.com/#{build.repository.slug}/commit/#{build.commit[0...7]}
 Author: #{build.author_name} (#{build.author_email})
+Compare Url: #{build.compare_url}
 
 Message: 
    #{build.message.gsub("\n", "\n   ")}

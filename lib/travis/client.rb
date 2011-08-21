@@ -79,8 +79,7 @@ Usage:
       opts.separator ''
       opts.separator <<-FURTHER_HELP
 Furhter Help:
-    travis repositories --help
-    travis status --help
+    travis {command} --help
       FURTHER_HELP
 
       yield(opts)

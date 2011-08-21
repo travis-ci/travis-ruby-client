@@ -18,7 +18,7 @@ module Travis
         # @return [String, NilClass]
         attr_reader :owner
 
-        # @param [Hash] attributes
+        # @param [Hash{String=>String,Fixnum}] attributes
         # @param [String, NilClass] name Repository's name
         # @param [String, NilClass] owner Repository owner's name 
         def initialize(attributes = {}, owner = nil, name = nil)
@@ -29,7 +29,7 @@ module Travis
 
         # Returns the hash representation of the Repository
         #
-        # @return [Hash]
+        # @return [Hash{String=>String,Fixnum}]
         def to_hash
           return attributes()
         end

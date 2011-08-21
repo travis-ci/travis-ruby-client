@@ -9,7 +9,7 @@ module Travis
 
     class Entity
 
-      # @param [Hash] attributes
+      # @param [Hash{String=>String,Fixnum}] attributes
       def initialize(attributes = {})
         @attributes = attributes
       end

@@ -8,7 +8,7 @@ module Travis
 
       class Build < Entity
       
-        # @param [Hash] attributes
+        # @param [Hash{String=>String,Fixnum}] attributes
         # @param [String, NilClass] repository_owner The repository owner's name
         # @param [String, NilClass] repository_name The repository's name
         def initialize(attributes = {}, repository_owner = nil, repository_name = nil)
@@ -19,7 +19,7 @@ module Travis
         
         # Returns the hash representation of the Build
         #
-        # @return [Hash]
+        # @return [Hash{String=>String,Fixnum}]
         def to_hash
           return attributes()
         end
