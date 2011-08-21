@@ -16,9 +16,13 @@ module Travis
     # If several remote repositories are defined it will display
     # the status of each of them. 
     def self.status
-      target_repository_slugs()
       ARGV[0] = 'repositories'
-      ARGV << "--slugs=#{target_repository_slugs().join(',')}"
+      slugs = target_repository_slugs()
+      if slugs.length > 1
+        ARGV << "--slugs=#{target_repository_slugs().join(',')}"
+      else
+        ARGV << "--slug=#{target_repository_slugs().first}"
+      end
       Repositories.new.run
     end
 

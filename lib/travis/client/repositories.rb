@@ -48,10 +48,6 @@ module Travis
         $stdout.print("Fetching #{options().owner}/#{options().name} build ##{options().build_id} ...\n\n")
         if build = API::Client::Repositories.owner(options().owner).name(options().name).build!(options().build_id)
           $stdout.print(build_view_for(build))
-          if build.matrix
-            $stdout.print("\nBuild Matrix:\n")
-            $stdout.print(builds_table_for(build.matrix))
-          end  
         else
           $stdout.print("\033\[33mCould not find the #{options().owner}/#{options().name} build with ID = #{oprions().build_id}.\033\[0m")
         end
@@ -80,15 +76,12 @@ module Travis
       }
 
       # Maps the status code from the API to its human translation.
-      # It's meant to add colors too but the Hirb library is not handling
-      # them properly.
       #
       # @return [Hash]
       BUILD_STATUS = {
-        # Hirb is not handling special characters properly :S Will try to add colors later
-        nil => 'Running', #"\033\[33mRunning\033\[0m",
-        0   => 'Passing', #"\033\[32mPassing\033\[0m",
-        1   => 'Failing'  #"\033\[31mFailing\033\[0m"
+        nil => 'Running',
+        0   => 'Passing',
+        1   => 'Failing'
       }
       
       # Maps the status code from the API to its human translation.
@@ -100,12 +93,18 @@ module Travis
         1   => "\033\[31mFailing\033\[0m"
       }
       
-      # Labels for the repository tables.
+      # Labels for the builds tables.
       # This also limits the information to be displayed. 
       #
       # @return [Array<String>] 
       BUILD_FIELDS = ['ID', 'Branch', 'Status', 'Started At', 'Finished At', 'Author', 'Commit', 'Repo ID']
       
+      # Labels for the child builds tables.
+      # This also limits the information to be displayed. 
+      #
+      # @return [Array<String>] 
+      CHILD_BUILD_FIELDS = ['ID', 'Status', 'Started At', 'Finished At']
+
       # Maps the build attribute names with the table labels
       #
       # @return [Hash]
@@ -205,26 +204,26 @@ Usage:
       #
       # @return [String]
       def repository_view_for(repository)
-        #TODO: Create a more useful view. Using the listing table right now
-        Hirb::Helpers::Table.render(
-          [repository.to_hash], 
-          {
-            :description => false,
-            :fields => REPOSITORY_FIELDS, 
-            :change_fields => REPOSITORY_FIELD_NAMES,
-            :filters => {
-              'Status' => lambda { |status|
-                BUILD_STATUS[status]  
-              },
-              'Started At' => lambda { |started_at|
-                started_at ? DateTime.parse(started_at).strftime('%D %T') : '-----------------'
-              },
-              'Finished At' => lambda { |finished_at|
-                finished_at ? DateTime.parse(finished_at).strftime('%D %T') : '-----------------'
-              }
-            }
-          }
-        )
+        last_build = repository.last_build
+        <<-REPOSITORY
+#{repository.slug} - #{BUILD_COLORED_STATUS[repository.last_build_status]}
+
+Repository ID: #{repository.id}
+
+Last Build:
+  ID: #{last_build.id}
+  Number: #{last_build.number}
+
+  Started at: #{last_build.started_at ? DateTime.parse(last_build.started_at).strftime('%D %T'): '-----------------'}
+  Finished at: #{last_build.finished_at ? DateTime.parse(last_build.finished_at).strftime('%D %T'): '-----------------'}
+
+  Commit: #{last_build.commit[0...7]}(#{last_build.branch}) - http://github.com/#{repository.slug}/commit/#{last_build.commit[0...7]}
+  Author: #{last_build.author_name} (#{last_build.author_email})
+
+  Message: 
+     #{last_build.message.gsub("\n", "\n     ")}
+     #{last_build.matrix ? "\n  Build Matrix:\n    #{child_builds_table_for(last_build.matrix).gsub("\n", "\n    ")}": ''}
+        REPOSITORY
       end
 
       # Returns the formatted table of repositories
@@ -280,32 +279,15 @@ Usage:
         )
       end
       
-      # Returns the formatted view of a build
+      # Returns the formatted table of builds
       #
       # @return [String]
-      def build_view_for(build)
-        return <<-BUILD
-#{build.repository.slug} - #{BUILD_COLORED_STATUS[build.status]}
-
-ID: #{build.id}
-Number: #{build.number}
-Repository ID: #{build.repository.id}
-
-Started at: #{build.started_at ? DateTime.parse(build.started_at).strftime('%D %T'): '-----------------'}
-Finished at: #{build.finished_at ? DateTime.parse(build.finished_at).strftime('%D %T'): '-----------------'}
-
-Commit: #{build.commit[0...7]}(#{build.branch}) - http://github.com/#{build.repository.slug}/commit/#{build.commit[0...7]}
-Author: #{build.author_name} (#{build.author_email})
-
-Message: 
-   #{build.message.gsub("\n", "\n   ")}
-        BUILD
-        #TODO: Create a more useful view. Using the listing table right now
+      def child_builds_table_for(builds)
         Hirb::Helpers::Table.render(
-          [build.to_hash], 
+          builds.map{|build| build.to_hash}, 
           {
             :description => false,
-            :fields => BUILD_FIELDS, 
+            :fields => CHILD_BUILD_FIELDS, 
             :change_fields => BUILD_FIELD_NAMES,
             :max_fields => {
               'Commit' => 10
@@ -323,6 +305,29 @@ Message:
             }
           }
         )
+      end
+
+      # Returns the formatted view of a build
+      #
+      # @return [String]
+      def build_view_for(build)
+        <<-BUILD
+#{build.repository.slug} - #{BUILD_COLORED_STATUS[build.status]}
+
+ID: #{build.id}
+Number: #{build.number}
+Repository ID: #{build.repository.id}
+
+Started at: #{build.started_at ? DateTime.parse(build.started_at).strftime('%D %T'): '-----------------'}
+Finished at: #{build.finished_at ? DateTime.parse(build.finished_at).strftime('%D %T'): '-----------------'}
+
+Commit: #{build.commit[0...7]}(#{build.branch}) - http://github.com/#{build.repository.slug}/commit/#{build.commit[0...7]}
+Author: #{build.author_name} (#{build.author_email})
+
+Message: 
+   #{build.message.gsub("\n", "\n   ")}
+   #{build.matrix ? "\nBuild Matrix:\n#{child_builds_table_for(build.matrix)}": ''}
+        BUILD
       end
 
     end
