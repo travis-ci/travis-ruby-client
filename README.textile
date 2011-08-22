@@ -14,7 +14,7 @@ h2. Usage [As a Command Line Tool]
 
 <pre>
 Supported Commands:
-    travis repositories|repos|repo|r {optios}
+    travis repositories|repos|repo|r {options}
     travis status|stat|s {options}
 
 Repositories:
