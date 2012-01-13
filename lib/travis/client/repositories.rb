@@ -144,9 +144,9 @@ Commands:
 Usage:
    travis status
    travis repositories [--recent]
-   travis repostiories --slugs={repository_slug}[,{repository_slug}[,...]]
+   travis repositories --slugs={repository_slug}[,{repository_slug}[,...]]
    travis repositories --name={repository_name} --owner={owner_name}
-   travis repostiories --slug={repository_slug}
+   travis repositories --slug={repository_slug}
    travis repositories --builds
    travis repositories --name={repository_name} --owner={owner_name} --build_id={build_id}
    travis repositories --slug={repository_slug} --build_id={build_id}
