@@ -28,7 +28,7 @@ Repositories:
     travis repositories --slug={repository_slug} --build_id={build_id}
 
 Supported Options:
-    --recent                     lists the recent processed repositories.
+    --recent                         lists the recent processed repositories.
     -B, --builds                     lists the recent builds for a repository.
     -o, --owner=                     sets the target repository owner's name.
     -n, --name=                      sets the target repository name.
