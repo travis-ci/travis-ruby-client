@@ -1,3 +1,4 @@
+require './spec/spec_helper'
 require './spec/travis/api/shared_entity_examples'
 
 module Travis
