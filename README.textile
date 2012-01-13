@@ -1,4 +1,4 @@
-h1. Travis Ruby Client - "!https://secure.travis-ci.org/travis-ci/travis-ruby-client.png?branch=master!":http://travis-ci.org/travis-ci/travis-ruby-client
+h1. Travis Ruby Client - "!https://secure.travis-ci.org/travis-ci/travis-ruby-client.png?branch=master!":http://travis-ci.org/travis-ci/travis-ruby-client "!https://gemnasium.com/travis-ci/travis-ruby-client.png!":https://gemnasium.com/travis-ci/travis-ruby-client
 
 h2. Contact
 * "Github":http://github.com/travis-ci/travis-ruby-client
@@ -9,6 +9,12 @@ h2. Contact
 h2. Documentation
 
 * "YARD docs":http://rdoc.info/github/travis-ci/travis-ruby-client/master/file/README.textile
+
+h2. Installation
+
+<pre>
+  gem install travis-client
+</pre>
 
 h2. Usage [As a Command Line Tool]
 
