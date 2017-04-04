@@ -1,0 +1,44 @@
+GET https://api.travis-ci.org/repo/travis-ci%2Ftravis.rb HTTP/1.1
+Accept: application/json
+Travis-API-Version: 3
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "@type": "repository",
+  "@href": "/repo/409371",
+  "@representation": "standard",
+  "@permissions": {
+    "read": true,
+    "admin": false,
+    "activate": false,
+    "deactivate": false,
+    "star": false,
+    "unstar": false,
+    "create_cron": false,
+    "create_env_var": false,
+    "create_key_pair": false,
+    "create_request": false
+  },
+  "id": 409371,
+  "name": "travis.rb",
+  "slug": "travis-ci/travis.rb",
+  "description": "Travis CI Client (CLI and Ruby library)",
+  "github_language": null,
+  "active": true,
+  "private": false,
+  "owner": {
+    "@type": "organization",
+    "id": 87,
+    "login": "travis-ci",
+    "@href": "/org/87"
+  },
+  "default_branch": {
+    "@type": "branch",
+    "@href": "/repo/409371/branch/master",
+    "@representation": "minimal",
+    "name": "master"
+  },
+  "starred": false
+}

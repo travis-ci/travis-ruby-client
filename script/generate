@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+require 'bundler/setup'
+require 'travis/client'
+require 'yaml'
+
+unless ARGV.first and File.exist? ARGV.first
+  $stderr.puts "Please specify path to attributes.yml (from data directory in developer repo)."
+  exit 1
+end
+
+info = YAML.load_file(ARGV.first)
+Travis.connect
+
+signature = Proc.new do |dev_info, method_name, method, klass|
+  docs     = dev_info['description']
+  docs   &&= docs.sub(/^(\w)/) { |s| s.upcase }.sub(/\w$/, '\0.')
+  docs   ||= "Wheather or not ##{method_name.to_s.sub(/\?$/, '')} returns a truthy value (anything but `nil` or `false`)." if method_name.to_s.end_with? '?'
+  args     = method.parameters.map { |mode, name| mode == :opt ? "#{name} = #{name == :params ? '{}' : 'nil'}" : name }.join(', ')
+  args     = "(#{args})" unless args.empty?
+
+  puts "#      # #{docs}" if docs
+  puts "#      def #{method_name}#{args}", "#        # This is a placeholder.", "#      end"
+end
+
+puts '# @!parse'
+
+Travis.session.resource_types.each_with_index do |(type, klass), klass_index|
+  puts "#  " if klass_index > 0
+  superclass = klass < Travis::Client::Collection ? Travis::Client::Collection : Travis::Client::Entity
+  puts "#    class #{klass} < #{superclass}"
+
+  (klass.methods - superclass.methods - [:session]).each do |method|
+    signature[info["#{type}.#{method}"] || {}, "self.#{method}", klass.method(method), klass]
+    puts "#  "
+  end
+
+  (klass.instance_methods - superclass.instance_methods).each_with_index do |method, method_index|
+    next if superclass == Travis::Client::Collection and method.to_s.sub(/\?$/, '') == type
+    puts "#  " if method_index > 0
+    signature[info["#{type}.#{method}"] || {}, method, klass.instance_method(method), klass]
+  end
+  puts "#    end"
+end

@@ -1,0 +1,351 @@
+GET https://api.travis-ci.org/repo/409371/branches?limit=10&offset=10 HTTP/1.1
+Accept: application/json
+Travis-API-Version: 3
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "@type": "branches",
+  "@href": "/repo/409371/branches?limit=10&offset=10",
+  "@representation": "standard",
+  "@pagination": {
+    "limit": 10,
+    "offset": 10,
+    "count": 22,
+    "is_first": false,
+    "is_last": false,
+    "next": {
+      "@href": "/repo/409371/branches?limit=10&offset=20",
+      "offset": 20,
+      "limit": 10
+    },
+    "prev": {
+      "@href": "/repo/409371/branches?limit=10&offset=0",
+      "offset": 0,
+      "limit": 10
+    },
+    "first": {
+      "@href": "/repo/409371/branches?limit=10&offset=0",
+      "offset": 0,
+      "limit": 10
+    },
+    "last": {
+      "@href": "/repo/409371/branches?limit=10&offset=20",
+      "offset": 20,
+      "limit": 10
+    }
+  },
+  "branches": [
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/v1.8.6",
+      "@representation": "standard",
+      "name": "v1.8.6",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/195648126",
+        "@representation": "minimal",
+        "id": 195648126,
+        "number": "810",
+        "state": "passed",
+        "duration": 591,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2017-01-26T19:46:38Z",
+        "finished_at": "2017-01-26T22:59:01Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/fix_report",
+      "@representation": "standard",
+      "name": "fix_report",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/194281685",
+        "@representation": "minimal",
+        "id": 194281685,
+        "number": "804",
+        "state": "passed",
+        "duration": 479,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2017-01-22T20:25:57Z",
+        "finished_at": "2017-01-22T20:29:06Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/v1.8.5",
+      "@representation": "standard",
+      "name": "v1.8.5",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/182323691",
+        "@representation": "minimal",
+        "id": 182323691,
+        "number": "795",
+        "state": "passed",
+        "duration": 651,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2016-12-08T16:14:19Z",
+        "finished_at": "2016-12-08T16:45:18Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/v1.8.4",
+      "@representation": "standard",
+      "name": "v1.8.4",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/174556256",
+        "@representation": "minimal",
+        "id": 174556256,
+        "number": "780",
+        "state": "passed",
+        "duration": 489,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2016-11-09T17:45:45Z",
+        "finished_at": "2016-11-09T18:09:30Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/v1.8.3",
+      "@representation": "standard",
+      "name": "v1.8.3",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/174531237",
+        "@representation": "minimal",
+        "id": 174531237,
+        "number": "778",
+        "state": "passed",
+        "duration": 508,
+        "event_type": "push",
+        "previous_state": "errored",
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2016-11-09T16:13:15Z",
+        "finished_at": "2016-11-09T16:30:28Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/sec-incident-20161007",
+      "@representation": "standard",
+      "name": "sec-incident-20161007",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/166763571",
+        "@representation": "minimal",
+        "id": 166763571,
+        "number": "772",
+        "state": "passed",
+        "duration": 578,
+        "event_type": "push",
+        "previous_state": "errored",
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2016-10-11T14:10:26Z",
+        "finished_at": "2016-10-11T14:15:30Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/v1.8.2",
+      "@representation": "standard",
+      "name": "v1.8.2",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/101827353",
+        "@representation": "minimal",
+        "id": 101827353,
+        "number": "725",
+        "state": "passed",
+        "duration": 282,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2016-01-12T12:56:48Z",
+        "finished_at": "2016-01-12T12:57:22Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/v1.8.1",
+      "@representation": "standard",
+      "name": "v1.8.1",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/101827328",
+        "@representation": "minimal",
+        "id": 101827328,
+        "number": "723",
+        "state": "passed",
+        "duration": 284,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2016-01-12T12:54:23Z",
+        "finished_at": "2016-01-12T12:55:07Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/ha-feature-logger",
+      "@representation": "standard",
+      "name": "ha-feature-logger",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/101148156",
+        "@representation": "minimal",
+        "id": 101148156,
+        "number": "720",
+        "state": "passed",
+        "duration": 333,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2016-01-08T20:13:05Z",
+        "finished_at": "2016-01-08T20:13:57Z"
+      }
+    },
+    {
+      "@type": "branch",
+      "@href": "/repo/409371/branch/v1.8.0",
+      "@representation": "standard",
+      "name": "v1.8.0",
+      "repository": {
+        "@type": "repository",
+        "@href": "/repo/409371",
+        "@representation": "minimal",
+        "id": 409371,
+        "name": "travis.rb",
+        "slug": "travis-ci/travis.rb"
+      },
+      "default_branch": false,
+      "exists_on_github": false,
+      "last_build": {
+        "@type": "build",
+        "@href": "/build/71051560",
+        "@representation": "minimal",
+        "id": 71051560,
+        "number": "690",
+        "state": "passed",
+        "duration": 300,
+        "event_type": "push",
+        "previous_state": null,
+        "pull_request_title": null,
+        "pull_request_number": null,
+        "started_at": "2015-07-15T10:07:19Z",
+        "finished_at": "2015-07-15T10:09:45Z"
+      }
+    }
+  ]
+}
