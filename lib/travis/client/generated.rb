@@ -108,9 +108,6 @@
 #      end
 #    end
 #  
-#    class Travis::Account < Travis::Client::Entity
-#    end
-#  
 #    class Travis::Active < Travis::Client::Entity
 #      def self.for_owner(params = {})
 #        # This is a placeholder.
@@ -1438,14 +1435,6 @@
 #        # This is a placeholder.
 #      end
 #  
-#      def update_key_pair(params = {})
-#        # This is a placeholder.
-#      end
-#  
-#      def key_pair_delete(params = {})
-#        # This is a placeholder.
-#      end
-#  
 #      def caches(params = {})
 #        # This is a placeholder.
 #      end
@@ -1465,11 +1454,7 @@
 #        # This is a placeholder.
 #      end
 #  
-#      def key_pair_generated(params = {})
-#        # This is a placeholder.
-#      end
-#  
-#      def key_pair_generated_find(params = {})
+#      def key_pair_delete(params = {})
 #        # This is a placeholder.
 #      end
 #  
@@ -1477,7 +1462,11 @@
 #        # This is a placeholder.
 #      end
 #  
-#      def key_pair_generated_create(params = {})
+#      def update_key_pair(params = {})
+#        # This is a placeholder.
+#      end
+#  
+#      def key_pair_generated_find(params = {})
 #        # This is a placeholder.
 #      end
 #  
@@ -1486,7 +1475,15 @@
 #        # This is a placeholder.
 #      end
 #  
+#      def key_pair_generated(params = {})
+#        # This is a placeholder.
+#      end
+#  
 #      def crons(params = {})
+#        # This is a placeholder.
+#      end
+#  
+#      def find_key_pair_generated(params = {})
 #        # This is a placeholder.
 #      end
 #  
@@ -1498,7 +1495,7 @@
 #        # This is a placeholder.
 #      end
 #  
-#      def find_key_pair_generated(params = {})
+#      def key_pair_generated_create(params = {})
 #        # This is a placeholder.
 #      end
 #  
@@ -1645,12 +1642,17 @@
 #        # This is a placeholder.
 #      end
 #  
+#      # GitHub user or organization the repository belongs to.
+#      def owner
+#        # This is a placeholder.
+#      end
+#  
 #      def builds_find(params = {})
 #        # This is a placeholder.
 #      end
 #  
-#      # GitHub user or organization the repository belongs to.
-#      def owner
+#      # The default branch on GitHub.
+#      def default_branch
 #        # This is a placeholder.
 #      end
 #  
@@ -1659,11 +1661,11 @@
 #        # This is a placeholder.
 #      end
 #  
-#      def find_caches(params = {})
+#      def branch(params = {})
 #        # This is a placeholder.
 #      end
 #  
-#      def branch(params = {})
+#      def find_caches(params = {})
 #        # This is a placeholder.
 #      end
 #  
@@ -1687,11 +1689,6 @@
 #        # This is a placeholder.
 #      end
 #  
-#      # The default branch on GitHub.
-#      def default_branch
-#        # This is a placeholder.
-#      end
-#  
 #      def cron(params = {})
 #        # This is a placeholder.
 #      end
@@ -1708,20 +1705,20 @@
 #        # This is a placeholder.
 #      end
 #  
-#      def find_builds(params = {})
-#        # This is a placeholder.
-#      end
-#  
 #      def create_cron(params = {})
 #        # This is a placeholder.
 #      end
 #  
-#      def env_var(params = {})
+#      def find_builds(params = {})
 #        # This is a placeholder.
 #      end
 #  
 #      # Wheather or not #private returns a truthy value (anything but `nil` or `false`).
 #      def private?
+#        # This is a placeholder.
+#      end
+#  
+#      def env_var(params = {})
 #        # This is a placeholder.
 #      end
 #  
@@ -1753,12 +1750,12 @@
 #        # This is a placeholder.
 #      end
 #  
-#      def create_env_vars(params = {})
+#      # Wheather or not #active returns a truthy value (anything but `nil` or `false`).
+#      def active?
 #        # This is a placeholder.
 #      end
 #  
-#      # Wheather or not #active returns a truthy value (anything but `nil` or `false`).
-#      def active?
+#      def create_env_vars(params = {})
 #        # This is a placeholder.
 #      end
 #    end
@@ -1908,6 +1905,44 @@
 #        # This is a placeholder.
 #      end
 #  
+#    end
+#  
+#    class Travis::Stage < Travis::Client::Entity
+#      def name
+#        # This is a placeholder.
+#      end
+#  
+#      def id
+#        # This is a placeholder.
+#      end
+#  
+#      def number
+#        # This is a placeholder.
+#      end
+#  
+#      # Wheather or not #id returns a truthy value (anything but `nil` or `false`).
+#      def id?
+#        # This is a placeholder.
+#      end
+#  
+#      # Wheather or not #name returns a truthy value (anything but `nil` or `false`).
+#      def name?
+#        # This is a placeholder.
+#      end
+#  
+#      # Wheather or not #number returns a truthy value (anything but `nil` or `false`).
+#      def number?
+#        # This is a placeholder.
+#      end
+#  
+#      def jobs
+#        # This is a placeholder.
+#      end
+#  
+#      # Wheather or not #jobs returns a truthy value (anything but `nil` or `false`).
+#      def jobs?
+#        # This is a placeholder.
+#      end
 #    end
 #  
 #    class Travis::User < Travis::Client::Entity
