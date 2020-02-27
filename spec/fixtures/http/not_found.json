@@ -1,0 +1,6 @@
+{
+  "@type": "error",
+  "error_type": "not_found",
+  "error_message": "repository not found (or insufficient access)",
+  "resource_type": "repository"
+}

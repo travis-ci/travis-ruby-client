@@ -1,18 +1,34 @@
-describe Travis do
-  describe 'generated constants' do
-    before(:all) { Travis.connect(http_factory: Support::FakeHTTP.new) }
-    before { @stderr, $stderr = $stderr, StringIO.new }
-    after { $stderr = @stderr }
+describe Travis::Client do
+  before { stub_request(:get, 'https://api.travis-ci.com').and_return body: fixture('index') }
+  before { stub_request(:get, %r(repo/travis-ci%2Ftravis.rb)).and_return body: fixture('http/repo') }
 
-    example { expect(Travis::Owner.find(login: 'rkh')).to be == Travis.session.find_user(id: 267, include: 'user.repositories') }
-    example { expect { Travis::Owner.find(login: 'rkh').sync }.to raise_exception(Travis::LoginRequired) }
-    example { expect { Travis::Missing }.to raise_exception(NameError) }
-    example { expect(Travis::Repository.find(slug: 'travis-ci/travis.rb').find_branches) .to be == Travis.session.branches_find('repository.id' => 409371) }
-    example { expect(Travis::Repository.find(slug: 'travis-ci/travis.rb').branches)      .to be == Travis.session.branches_find('repository.id' => 409371) }
+  describe 'init' do
+    # shared_examples :constants do
+    #   xit { expect(Travis::Client::Error).to be < Travis::Client::Resource::Error }
+    #   it { expect(Travis::Client::Repository).to be < Travis::Client::Resource::Entity }
+    #   it { expect(Travis::Client::Repositories).to be < Travis::Client::Resource::Collection }
+    # end
 
-    example do
-      Travis.connect(http_factory: Support::FakeHTTP.new)
-      expect($stderr.string).to include('WARNING: It is not recommended to call Travis.connect more than once')
+    describe 'loading the index' do
+      before { Travis::Client.init(path: '/tmp/travis-ruby-client') }
+      after { FileUtils.rm_rf('/tmp/travis-ruby-client') }
+      # include_examples :constants
     end
+
+    describe 'cached index' do
+      before { Travis::Client.init(path: 'spec/fixtures') }
+      # include_examples :constants
+    end
+  end
+
+  describe 'global style', init: true do
+    subject { Travis::Client::Repository.find(slug: 'travis-ci/travis.rb') }
+    it { expect(subject.slug).to eq 'travis-ci/travis.rb' }
+  end
+
+  describe 'session style' do
+    let(:session) { Travis::Client::Session.new(path: 'spec/fixtures') }
+    subject { session.find_repository(slug: 'travis-ci/travis.rb') }
+    it { expect(subject.slug).to eq 'travis-ci/travis.rb' }
   end
 end

@@ -1,0 +1,16 @@
+{
+  "@type": "user",
+  "@href": "/user/267",
+  "@representation": "standard",
+  "@permissions": {
+    "read": true,
+    "sync": false
+  },
+  "id": 267,
+  "login": "rkh",
+  "name": "Konstantin Haase",
+  "github_id": 30442,
+  "avatar_url": "https://avatars1.githubusercontent.com/u/30442?v=3",
+  "is_syncing": false,
+  "synced_at": "2017-04-03T00:03:25Z"
+}

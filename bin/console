@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+$:.unshift('lib')
+
+require 'optparse'
+require 'pry'
+require 'travis/client'
+
+include Travis::Client
+include Travis::Client::Resources
+
+opts = {}
+
+ARGV.options do |o|
+  o.on('--token TOKEN') { |token| opts[:token] = token }
+  o.parse!
+end
+
+Travis.init(**opts)
+pry

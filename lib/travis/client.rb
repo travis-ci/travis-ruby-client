@@ -1,25 +1,57 @@
 # frozen_string_literal: true
-require 'addressable/uri'
-require 'addressable/template'
-require 'http'
-require 'json'
+
+require 'travis/client/session'
+require 'travis/client/version'
 
 module Travis
   module Client
-    require 'travis/client/version'
+    extend self
 
-    require 'travis/client/action'
-    require 'travis/client/connection'
-    require 'travis/client/context'
-    require 'travis/client/entity'
-    require 'travis/client/error'
-    require 'travis/client/link'
-    require 'travis/client/session'
+    attr_accessor :default_endpoint
+    attr_reader :session, :session
 
-    require 'travis/client/collection'
-    require 'travis/client/unknown'
+    self.default_endpoint = 'https://api.travis-ci.com'
+    # self.default_endpoint = 'https://api.travis-ci.org'
+    # self.default_endpoint = 'http://localhost:3000'
+
+    def new(**options)
+      Session.new(**options)
+    end
+
+    def init(**options)
+      @session = new(**options)
+      self.class.include(session.namespace)
+      session
+    end
+
+    def initialized?
+      !session.nil?
+    end
+
+    # def reset
+    #   @initialized, @session = nil
+    #   Resources.reset
+    # end
+
+    def clear_cache
+      return unless connected?
+      session.cache.clear
+    end
+
+    def before_request(&block)
+      session.before_request(&block)
+    end
+
+    def after_request(&block)
+      session.after_request(&block)
+    end
+
+    def const_missing(name)
+      return session.namespace.const_get(name) if session && session.namespace.const_defined?(name)
+      super
+    rescue NameError => error
+      message = initialized? ? error.message :  "#{error.message}, try running #{inspect}.init"
+      raise error, message, caller(2)
+    end
   end
-
-  extend Client::Context
-  self.default_endpoint = 'https://api.travis-ci.org'
 end

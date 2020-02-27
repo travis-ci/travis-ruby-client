@@ -1,6 +1,5 @@
-# frozen_string_literal: true
 module Travis
   module Client
-    VERSION = '3.0.0'
+    VERSION = '2.0.0.dev.0'
   end
 end
